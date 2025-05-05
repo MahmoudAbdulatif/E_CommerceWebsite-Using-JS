@@ -1,0 +1,73 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "username": "admin",
+      "password": "admin123",
+      "role": "admin"
+    },
+    {
+      "id": "2",
+      "username": "seller1",
+      "password": "seller123",
+      "role": "seller"
+    },
+    {
+      "id": "21",
+      "username": "sasasa",
+      "password": "123",
+      "role": "customer"
+    }
+  ],
+  "products": [
+    {
+      "id": "2",
+      "name": "Mouse Pro",
+      "price": 400,
+      "category": "Accessories",
+      "image": "mouse.jpg",
+      "sellerId": 3,
+      "status": "approved"
+    },
+    {
+      "id": "99",
+      "name": "LapTop",
+      "price": 20000,
+      "category": "Hp-Zbook",
+      "status": "approved",
+      "sellerId": "1"
+    },
+    {
+      "id": "9593",
+      "name": "ElSweede Cable",
+      "price": 50000,
+      "category": "Cu",
+      "status": "approved",
+      "sellerId": "2"
+    },
+    {
+      "id": "27",
+      "name": "Ship",
+      "price": 1000000,
+      "category": "see",
+      "status": "pending",
+      "sellerId": "2"
+    },
+    {
+      "id": "32",
+      "name": "LapTop",
+      "price": 334353,
+      "category": "Hp",
+      "status": "pending",
+      "sellerId": "2"
+    },
+    {
+      "id": "97",
+      "name": "LapTop",
+      "price": 7000000,
+      "category": "Hp",
+      "status": "approved",
+      "sellerId": "2"
+    }
+  ]
+}

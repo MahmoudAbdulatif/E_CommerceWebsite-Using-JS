@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title> seller_products</title>
+  <style>
+    .product-card { border: 1px solid #ccc; padding: 10px; margin: 10px; }
+    .actions button { margin: 5px; }
+  </style>
+</head>
+<body>
+  <h1>Products</h1>
+  
+  <div>
+    <input type="text" id="new-name" placeholder="Name of product ">
+    <input type="number" id="new-price" placeholder="Price">
+    <input type="text" id="new-category" placeholder="new-category">
+    <button onclick="addProduct()">➕  add product</button>
+  </div>
+
+  <hr>
+
+  <div id="productList"></div>
+
+  <script src="seller_products.js"></script>
+</body>
+</html>
