@@ -23,6 +23,12 @@
       "username": "seller2",
       "password": "123",
       "role": "seller"
+    },
+    {
+      "id": "32921",
+      "username": "customer",
+      "password": "123456789",
+      "role": "customer"
     }
   ],
   "products": [

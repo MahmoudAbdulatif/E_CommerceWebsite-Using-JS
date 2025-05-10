@@ -6,18 +6,16 @@
   <link rel="stylesheet" href="Register.css">
 </head>
 <body>
-  <h2>Register</h2>
-  <form id="registerForm">
-    <input type="text" id="username" placeholder="Username" required><br>
-    <input type="password" id="password" placeholder="Password" required><br>
-    <!-- <select id="role">
-      <option value="customer">Customer</option>
-      <option value="seller">Seller</option>
-      <option value="admin">Admin</option>
-    </select><br> -->
-    <br>
-    <button type="submit">Register</button>
-  </form>
+      <div class="register-container">
+    <h2> Register</h2>
+    <form id="registerForm">
+      <input type="text" id="username" placeholder=" UserName" required>
+      <input type="password" id="password" placeholder="password" required>
+      <button type="submit">Register</button>
+    </form>
+    <div id="error-message"></div>
+  </div>
+
 
   <script src="Register.js"></script>
 </body>
