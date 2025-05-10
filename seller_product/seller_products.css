@@ -1,0 +1,144 @@
+* {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #f4f6f9;
+      padding: 20px;
+      direction: rtl;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 20px;
+      font-size: 2rem;
+    }
+
+    /* تنسيق قسم إضافة المنتج */
+    .add-product {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .add-product input,
+    .add-product button {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+
+    .add-product input[type="file"] {
+      padding: 5px;
+    }
+
+    .add-product button {
+      background-color: #28a745;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .add-product button:hover {
+      background-color: #218838;
+    }
+
+    /* تنسيق قائمة المنتجات */
+    .product-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .product-card {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      text-align: right;
+    }
+
+    .product-card img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+
+    .product-card h3 {
+      color: #2c3e50;
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+
+    .product-card p {
+      margin: 5px 0;
+      color: #555;
+    }
+
+    .product-card input {
+      width: 100%;
+      margin: 5px 0;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .product-card input[type="file"] {
+      padding: 5px;
+    }
+
+    .actions {
+      margin-top: 10px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .actions button {
+      flex: 1;
+      padding: 8px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background-color 0.3s;
+    }
+
+    .actions button:first-child {
+      background-color: #007bff;
+      color: #fff;
+    }
+
+    .actions button:first-child:hover {
+      background-color: #0056b3;
+    }
+
+    .actions button:last-child {
+      background-color: #dc3545;
+      color: #fff;
+    }
+
+    .actions button:last-child:hover {
+      background-color: #c82333;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #ddd;
+      margin: 20px 0;
+    }

@@ -1,0 +1,63 @@
+<!-- dashboard/seller.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Seller Dashboard</title>
+    <link rel="stylesheet" href="seller.css" />
+    <link
+    rel="stylesheet"
+    href="../fontawsome/fontawesome-free-6.7.2-web/css/all.min.css"
+  />
+  </head>
+  <body>
+    <a id="scrollToTop" class="scroll-to-top" href="../seller_product/seller_products.html"
+      ><i class="fas fa-wrench"></i
+    ></a>
+
+    <!-- Main Content -->
+    <div class="container">
+      <h2><i class="fas fa-box-open"></i> Seller Dashboard</h2>
+
+      <!-- Add Product Form -->
+      <form id="addProductForm" class="product-form">
+        <div class="form-group">
+          <input type="text" id="name" placeholder="Product Name" required />
+        </div>
+        <div class="form-group">
+          <input type="number" id="price" placeholder="Price (EGP)" required />
+        </div>
+        <div class="form-group">
+          <input type="text" id="category" placeholder="Category" required />
+        </div>
+        <div class="form-group">
+          <input type="text" id="brand" placeholder="Brand (Optional)" />
+        </div>
+        <div class="form-group">
+          <input
+            type="text"
+            id="image"
+            placeholder="Image path (e.g., ../__/---)"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <textarea
+            id="description"
+            placeholder="Product Description"
+            required
+          ></textarea>
+        </div>
+        <button type="submit" class="submit-btn">
+          <i class="fas fa-plus"></i> Add Product
+        </button>
+      </form>
+
+      <!-- Products List -->
+      <h3><i class="fas fa-shopping-cart"></i> Your Products</h3>
+      <div id="myProducts" class="products-grid"></div>
+    </div>
+
+    <script src="seller.js"></script>
+  </body>
+</html>

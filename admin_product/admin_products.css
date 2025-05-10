@@ -1,0 +1,253 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: #f4f6f9;
+    color: #333;
+    line-height: 1.6;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  /* Navigation Bar */
+  .navbar {
+    background-color: #2c3e50;
+    color: #fff;
+    padding: 15px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    border-radius: 30px;
+  }
+  
+  .navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .logo i {
+    margin-right: 8px;
+  }
+  
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+  }
+  
+  .nav-links li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s;
+  }
+  
+  .nav-links li a i {
+    margin-right: 6px;
+  }
+  
+  .nav-links li a:hover {
+    color: #3498db;
+  }
+  
+  /* Main Content */
+  .section-title {
+    text-align: center;
+    font-size: 1.8rem;
+    margin: 40px 0 20px;
+    color: #2c3e50;
+  }
+  
+  .section-subtitle {
+    font-size: 1.4rem;
+    margin: 20px 0;
+    color: #2c3e50;
+  }
+  
+  /* Form Styles */
+  .user-form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: 0 auto 40px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    display: block;
+    font-size: 1rem;
+    color: #2c3e50;
+    margin-bottom: 5px;
+  }
+  
+  .form-group label i {
+    margin-right: 5px;
+  }
+  
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  .form-group input:focus,
+  .form-group select:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+  }
+  
+  .btn-create {
+    background-color: #3498db;
+  }
+  
+  .btn-create:hover {
+    background-color: #2980b9;
+  }
+  
+  /* User Grid */
+  .user-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding-bottom: 40px;
+  }
+  
+  .user-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .user-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .user-card p {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 10px;
+  }
+  
+  .user-card p strong {
+    color: #2c3e50;
+  }
+  
+  .user-card p em {
+    color: #3498db;
+  }
+  
+  .button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+  }
+  
+  .btn {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    color: #fff;
+  }
+  
+  .btn-delete {
+    background-color: #c0392b;
+  }
+  
+  .btn-delete:hover {
+    background-color: #a93226;
+  }
+  
+  .btn-edit {
+    background-color: #f1c40f;
+  }
+  
+  .btn-edit:hover {
+    background-color: #d4ac0d;
+  }
+  
+  .btn i {
+    margin-right: 5px;
+  }
+  
+  /* Modal Styles */
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+  }
+  
+  .modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 500px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #000;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .navbar .container {
+      flex-direction: column;
+      gap: 15px;
+    }
+  
+    .nav-links {
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+  
+    .user-grid {
+      grid-template-columns: 1fr;
+    }
+  }

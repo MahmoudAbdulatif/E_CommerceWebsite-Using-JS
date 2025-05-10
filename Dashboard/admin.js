@@ -1,88 +1,56 @@
-// تحقق من أن المستخدم أدمن
-const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-
-if (!currentUser || currentUser.role !== 'admin') {
-  alert("ليس لديك صلاحيات للوصول إلى هذه الصفحة.");
-  window.location.href = '../auth/login.html';
+const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+if (!currentUser || currentUser.role !== "admin") {
+  alert("Unauthorized Access!");
+  window.location.href = "../Login/login.html";
 }
 
-const productList = document.getElementById('productList');
+const productContainer = document.getElementById("productContainer");
 
-// جلب جميع المنتجات
-async function fetchProducts() {
-  const res = await fetch('http://localhost:3000/products');
+async function loadProducts() {
+  const res = await fetch("http://localhost:3000/products");
   const products = await res.json();
 
-  productList.innerHTML = `<h3>المنتجات المعلقة</h3>`;
+  productContainer.innerHTML = "";
 
   products.forEach(product => {
-    if (product.status === 'pending') { // فقط المنتجات التي في حالة "معلق"
-      productList.innerHTML += `
-        <div style="margin-bottom: 10px; border: 1px solid #ccc; padding: 10px;">
-          <strong>${product.name}</strong> - ${product.price} جنيه
-          <p>التصنيف: ${product.category}</p>
-          <p>الحالة: <em>${product.status}</em></p>
-          <button onclick="approveProduct(${product.id})">✅ قبول</button>
-          <button onclick="rejectProduct(${product.id})">❌ رفض</button>
-        </div>
-      `;
-    }
+    const productCard = document.createElement("div");
+    productCard.className = "product-card";
+    productCard.innerHTML = `
+      <img src="../${product.image}" alt="${product.name}" />
+      <h3>${product.name}</h3>
+      <p><strong>Price:</strong> ${product.price} EGP</p>
+      <p><strong>Category:</strong> ${product.category}</p>
+      <p><strong>Brand:</strong> ${product.brand}</p>
+      <p><strong>Description:</strong> ${product.description}</p>
+      <p><strong>Status:</strong> ${product.status}</p>
+      <p><strong>Seller ID:</strong> ${product.sellerId}</p>
+      <div class="button-group">
+        <button class="btn btn-approve" onclick="approveProduct(${product.id})"><i class="fas fa-check"></i> Approve</button>
+        <button class="btn btn-reject" onclick="rejectProduct(${product.id})"><i class="fas fa-times"></i> Reject</button>
+      </div>
+    `;
+    productContainer.appendChild(productCard);
   });
 }
 
-// إضافة منتج جديد
-async function addProduct() {
-  const newProduct = {
-    name: "منتج جديد",
-    price: 100,
-    category: "إلكترونيات",
-    status: "pending",
-    id: await getNextId()  // هتستخدم دالة عشان تجيب id جديد
-  };
-
-  // إرسال المنتج إلى JSON Server
-  await fetch('http://localhost:3000/products', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(newProduct)
-  });
-  fetchProducts(); // إعادة تحميل المنتجات
-}
-
-// دالة لحساب الـ id الجديد
-async function getNextId() {
-  const res = await fetch('http://localhost:3000/products');
-  const products = await res.json();
-  
-  // لو مفيش منتجات، يبقى الـ id هيكون 1
-  if (products.length === 0) {
-    return 1;
-  }
-  
-  // حساب أكبر id حالي و إضافة 1 عليه
-  const maxId = Math.max(...products.map(product => product.id));
-  return maxId + 1;
-}
-
-// الموافقة على المنتج
 async function approveProduct(id) {
   await fetch(`http://localhost:3000/products/${id}`, {
-    method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ status: 'approved' })
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ status: "approved" })
   });
-  fetchProducts(); // إعادة تحميل المنتجات
+  alert("Product Approved ✅");
+  loadProducts();
 }
 
-// رفض المنتج
 async function rejectProduct(id) {
   await fetch(`http://localhost:3000/products/${id}`, {
-    method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ status: 'rejected' })
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ status: "rejected" })
   });
-  fetchProducts(); // إعادة تحميل المنتجات
+  alert("Product Rejected ❌");
+  loadProducts();
 }
 
-// تحميل المنتجات عند فتح الصفحة
-fetchProducts();
+loadProducts();

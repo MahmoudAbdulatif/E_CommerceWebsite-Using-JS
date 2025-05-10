@@ -1,57 +1,61 @@
 const productList = document.getElementById("productList");
-
-// نحصل على المستخدم الحالي من localStorage
 const currentSeller = JSON.parse(localStorage.getItem("currentUser"));
 
-// تحقق إن المستخدم فعلاً بائع
 if (!currentSeller || currentSeller.role !== "seller") {
-  alert("You must be a seller to access this page.");
+  alert("be seller first");
   window.location.href = "login.html";
 }
 
-// عرض المنتجات الخاصة بالبائع
 async function fetchSellerProducts() {
-  const res = await fetch("http://localhost:3000/products");
-  const allProducts = await res.json();
+  try {
+    const res = await fetch("http://localhost:3000/products");
+    if (!res.ok) throw new Error("Failed to fetch products");
+    const allProducts = await res.json();
 
-  const sellerProducts = allProducts.filter(p => p.sellerId === currentSeller.id);
+    const sellerProducts = allProducts.filter(p => p.sellerId === currentSeller.id);
 
-  productList.innerHTML = "";
+    productList.innerHTML = "";
 
-  sellerProducts.forEach(product => {
-    const card = document.createElement("div");
-    card.className = "product-card";
+    sellerProducts.forEach(product => {
+      const card = document.createElement("div");
+      card.className = "product-card";
 
-    card.innerHTML = `
-      <h3>${product.name}</h3>
-      <p>Price: ${product.price} Pound</p>
-      <p>Category: ${product.category}</p>
-      <p>Status: <strong>${product.status}</strong></p>
+      card.innerHTML = `
+        <img src="${product.image || 'https://via.placeholder.com/150'}" alt="${product.name}">
+        <h3>${product.name}</h3>
+        <p>السعر: ${product.price} Egy</p>
+        <p>الفئة: ${product.category}</p>
+        <p>الحالة: <strong>${product.status}</strong></p>
 
-      <div style="margin-top:10px">
-        <input type="text" id="edit-name-${product.id}" value="${product.name}" placeholder="NameOfProduct " />
-        <input type="number" id="edit-price-${product.id}" value="${product.price}" placeholder="Price" />
-        <input type="text" id="edit-category-${product.id}" value="${product.category}" placeholder="Category" />
-
-        <div class="actions">
-          <button onclick="updateProduct(${product.id})">✏️ Edit</button>
-          <button onclick="deleteProduct(${product.id})">🗑️ Remove</button>
+        <div>
+          <input type="text" id="edit-name-${product.id}" value="${product.name}" placeholder="Name of product">
+          <input type="number" id="edit-price-${product.id}" value="${product.price}" placeholder="Price">
+          <input type="text" id="edit-category-${product.id}" value="${product.category}" placeholder="Category">
+          <input type="file" id="edit-image-${product.id}" accept="image/*">
+          <div class="actions">
+            <button onclick="updateProduct(${product.id})">✏️ Edit</button>
+            <button onclick="deleteProduct(${product.id})">🗑️ Delete</button>
+          </div>
         </div>
-      </div>
-    `;
+      `;
 
-    productList.appendChild(card);
-  });
+      productList.appendChild(card);
+    });
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    productList.innerHTML = `<p>error</p>`;
+  }
 }
 
-// إضافة منتج جديد
 window.addProduct = async function () {
   const name = document.getElementById("new-name").value.trim();
   const price = parseFloat(document.getElementById("new-price").value);
   const category = document.getElementById("new-category").value.trim();
+  const imageInput = document.getElementById("new-image");
+  const imageFile = imageInput.files[0];
 
   if (!name || !price || !category) {
-    alert("من فضلك املأ جميع الحقول.");
+    alert("please fill all required fields correctly.");
     return;
   }
 
@@ -59,56 +63,90 @@ window.addProduct = async function () {
     name,
     price,
     category,
-    status: "pending", // الحالة مبدئيًا انتظار موافقة الأدمن
-    sellerId: currentSeller.id
-    // ❌ لا ترسل id — json-server يولدها تلقائيًا
+    status: "pending",
+    sellerId: currentSeller.id,
+    image: imageFile ? await convertToBase64(imageFile) : "https://via.placeholder.com/150"
   };
 
-  await fetch("http://localhost:3000/products", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(newProduct)
-  });
+  try {
+    await fetch("http://localhost:3000/products", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newProduct)
+    });
 
-  // إعادة تحميل المنتجات
-  fetchSellerProducts();
-
-  // تفريغ الحقول
-  document.getElementById("new-name").value = "";
-  document.getElementById("new-price").value = "";
-  document.getElementById("new-category").value = "";
+    fetchSellerProducts();
+    document.getElementById("new-name").value = "";
+    document.getElementById("new-price").value = "";
+    document.getElementById("new-category").value = "";
+    imageInput.value = "";
+    alert("done"); 
+  } catch (error) {
+    console.error("Error adding product:", error);
+    alert("error");
+  }
 };
 
-// تعديل منتج
 window.updateProduct = async function (id) {
   const name = document.getElementById(`edit-name-${id}`).value.trim();
   const price = parseFloat(document.getElementById(`edit-price-${id}`).value);
   const category = document.getElementById(`edit-category-${id}`).value.trim();
+  const imageInput = document.getElementById(`edit-image-${id}`);
+  const imageFile = imageInput.files[0];
 
   if (!name || !price || !category) {
-    alert("Please fill in all fields.");
+    alert("please fill all required fields correctly.");
     return;
   }
 
-  await fetch(`http://localhost:3000/products/${id}`, {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ name, price, category })
-  });
+  const updatedProduct = {
+    name,
+    price,
+    category
+  };
 
-  fetchSellerProducts();
-};
+  if (imageFile) {
+    updatedProduct.image = await convertToBase64(imageFile);
+  }
 
-// حذف منتج
-window.deleteProduct = async function (id) {
-  if (confirm("Are you sure you want to delete this product?")) {
+  try {
     await fetch(`http://localhost:3000/products/${id}`, {
-      method: "DELETE"
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updatedProduct)
     });
 
     fetchSellerProducts();
+    alert("done");
+  } catch (error) {
+    console.error("Error updating product:", error);
+    alert("error");
   }
 };
 
-// تحميل المنتجات أول ما الصفحة تفتح
+window.deleteProduct = async function (id) {
+  if (confirm("Are you sure you want to delete this product?")) {
+    try {
+      await fetch(`http://localhost:3000/products/${id}`, {
+        method: "DELETE"
+      });
+
+      fetchSellerProducts();
+      alert("its deleted");
+    } catch (error) {
+      console.error("Error deleting product:", error);
+      alert("Error deleting product. Please try again.");
+    }
+  }
+};
+
+async function convertToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+    reader.readAsDataURL(file);
+  });
+}
+
 fetchSellerProducts();

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>🛒 سلة المشتريات</title>
+  <link rel="stylesheet" href="cart.css">
+  <link
+      rel="stylesheet"
+      href="../fontawsome/fontawesome-free-6.7.2-web/css/all.min.css"
+    />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">MyStore</div>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../Shop/shop.html">Products</a></li>
+      <li><a href="../my_order/myorder.html">Orders</a></li>
+    </ul>
+  </nav>
+
+  <!-- Cart Section -->
+  <section class="cart-container">
+    <h2>🛒 Your Shopping Cart</h2>
+    <div id="cartItems" class="cart-items"></div>
+    <div class="cart-summary">
+      <h3 id="totalPrice">Total: 0 EGP</h3>
+      <button onclick="checkout()" class="checkout-btn">✅ Proceed to Checkout</button>
+    </div>
+  </section>
+  <script src="cart.js"></script>
+</body>
+</html>

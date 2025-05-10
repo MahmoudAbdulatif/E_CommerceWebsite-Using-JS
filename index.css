@@ -91,6 +91,31 @@ button.white {
   left: 0;
 } 
 
+.nav-icons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 20px;
+  margin-right: 0;
+  padding: 5px 10px;
+  background-color: #f8f9fa;
+  border-radius: 20px;
+}
+
+.logout-c {
+  margin-left: 20px;
+  padding: 5px 10px;
+  background-color: #ff4d4d;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.3s;
+}
+
+.logout-c:hover {
+  background-color: #cf4040;
+}
+
 #navbar {
   display: flex;
   align-items: center;
@@ -147,7 +172,7 @@ justify-content: center;
 
 /* Home Page */
 #hero {
-  background-image: url("img/hero4.png");
+  background-image: url("img/2.jpg");
   height: 90vh;
   width: 100%;
   background-size: cover;
@@ -161,11 +186,20 @@ justify-content: center;
 
 #hero h4{
   padding-bottom: 15px;
+  color: #138f68;
+}
+#hero h2{
+  padding-bottom: 15px;
+  color: #a1ab93;
+}
+#hero p{
+  padding-bottom: 15px;
+  color: #f67535;
 }
 #hero h1 {
   font-size: 70px;
   line-height: 80px;
-  color: #3d3b3b;
+  color: #686464;
 }
 
 #hero button {
@@ -350,7 +384,7 @@ justify-content: center;
   justify-content: center;
   /* text-align: center; */
   flex-direction: column;
-  background-image: url("img/banner/b17.jpg");
+  background-image: url("img/banner/2.jpg");
   min-width: 650px;
   height: 50vh;
   background-size: cover;
@@ -359,7 +393,7 @@ justify-content: center;
 }
 
 #sm-banner .banner-box2{
-  background-image: url("img/banner/b10.jpg");
+  background-image: url("img/banner/4.jpg");
 }
 
 #sm-banner h4 {
@@ -397,7 +431,7 @@ justify-content: center;
   justify-content: center;
   /* text-align: center; */
   flex-direction: column;
-  background-image: url("img/banner/b7.jpg");
+  background-image: url("img/banner/3.jpg");
   min-width: 30%;
   height: 30vh;
   background-size: cover;
@@ -406,10 +440,10 @@ justify-content: center;
   margin-bottom: 20px;
 }
 #banner3 .banner-box2{
-  background-image: url("img/banner/b4.jpg");
+  background-image: url("img/banner/2.jpg");
 }
 #banner3 .banner-box3{
-  background-image: url("img/banner/b18.jpg");
+  background-image: url("img/banner/1.jpg");
 }
 
 #banner3 h2 {

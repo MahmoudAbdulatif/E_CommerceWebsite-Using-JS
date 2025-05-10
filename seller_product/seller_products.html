@@ -3,24 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <title> seller_products</title>
-  <style>
-    .product-card { border: 1px solid #ccc; padding: 10px; margin: 10px; }
-    .actions button { margin: 5px; }
-  </style>
+  <link rel="stylesheet" href="seller_products.css">
 </head>
 <body>
-  <h1>Products</h1>
+  <h1>products </h1>
   
-  <div>
+  <div class="add-product">
     <input type="text" id="new-name" placeholder="Name of product ">
     <input type="number" id="new-price" placeholder="Price">
-    <input type="text" id="new-category" placeholder="new-category">
-    <button onclick="addProduct()">➕  add product</button>
+    <input type="text" id="new-category" placeholder="Category">
+    <input type="file" id="new-image" accept="image/*">
+    <button onclick="addProduct()" class="btn btn-add">➕  Add Product</button>
   </div>
 
   <hr>
 
-  <div id="productList"></div>
+  <div id="productList" class="product-list"></div>
 
   <script src="seller_products.js"></script>
 </body>

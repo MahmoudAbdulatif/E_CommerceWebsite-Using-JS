@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title> rating</title>
+    <link
+      rel="stylesheet"
+      href="../fontawsome/fontawesome-free-6.7.2-web/css/all.min.css"
+    />
+    <link rel="stylesheet" href="about.css" />
+  </head>
+
+  <body>
+    <nav class="navbar">
+    <div class="container">
+      <h1 class="logo"><i class="fas fa-user"></i> Rating and Review</h1>
+      <ul class="nav-links">
+        <li><a href="../index.html"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="../Shop/shop.html"><i class="fas fa-box"></i> Products</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container">
+    <h2 class="section-title">Product Reviews</h2>
+    <div id="reviewSection" class="review-card">
+      <h3>Leave a Review</h3>
+      <form id="reviewForm">
+        <div class="form-group">
+          <label for="rating"><i class="fas fa-star"></i> Rating (1-5)</label>
+          <input type="number" id="rating" min="1" max="5" required>
+        </div>
+        <div class="form-group">
+          <label for="comment"><i class="fas fa-comment"></i> Comment</label>
+          <textarea id="comment" rows="3" placeholder="Write your review..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-create"><i class="fas fa-paper-plane"></i> Submit Review</button>
+      </form>
+    </div>
+
+    <div id="reviewsContainer" class="review-grid">
+      <h3>Reviews</h3>
+    </div>
+
+    <div id="notification" class="notification"></div>
+  </div>
+
+    <script src="about.js"></script>
+  </body>
+</html>

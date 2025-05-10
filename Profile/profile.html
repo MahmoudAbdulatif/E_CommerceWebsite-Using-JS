@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Profile</title>
+   <link
+      rel="stylesheet"
+      href="../fontawsome/fontawesome-free-6.7.2-web/css/all.min.css"
+    />
+    <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+ <nav class="navbar">
+    <div class="container">
+      <h1 class="logo"><i class="fas fa-user"></i> Update Profile</h1>
+      <ul class="nav-links">
+        <li><a href="../index.html"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="../Shop/shop.html"><i class="fas fa-box"></i> Products</a></li>
+        <!-- <li><a href="../Admin/users.html"><i class="fas fa-users"></i> Users</a></li> -->
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container">
+    <h2 class="section-title">My Profile 🧑</h2>
+    <div class="profile-card">
+      <p><strong>Role:</strong> <em id="userRole"></em></p>
+      <form id="profileForm">
+        <div class="form-group">
+          <label for="username"><i class="fas fa-user"></i> Username</label>
+          <input type="text" id="username" required placeholder="Enter username">
+        </div>
+        <div class="form-group">
+          <label for="password"><i class="fas fa-lock"></i> New Password</label>
+          <input type="password" id="password" placeholder="Enter new password (optional)">
+        </div>
+        <div class="form-group">
+          <label for="confirmPassword"><i class="fas fa-lock"></i> Confirm Password</label>
+          <input type="password" id="confirmPassword" placeholder="Confirm new password">
+        </div>
+        <p id="usernamePreview" class="preview-text"></p>
+        <button type="submit" class="btn btn-create"><i class="fas fa-save"></i> Update Profile</button>
+      </form>
+    </div>
+    <div id="notification" class="notification"></div>
+  </div>
+
+  <script src="profile.js"></script>
+</body>
+</html>

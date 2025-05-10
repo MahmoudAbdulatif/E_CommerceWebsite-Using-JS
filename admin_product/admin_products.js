@@ -1,85 +1,114 @@
-const productList = document.getElementById("productList");
+const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
-async function fetchProducts() {
-  const res = await fetch("http://localhost:3000/products");
-  const products = await res.json();
+if (!currentUser || currentUser.role !== "admin") {
+  alert("Unauthorized Access!");
+  window.location.href = "../Login/login.html";
+}
 
-  productList.innerHTML = "";
+const form = document.getElementById("createUserForm");
+const userList = document.getElementById("userList");
+const editModal = document.getElementById("editModal");
+const editUserForm = document.getElementById("editUserForm");
+const closeModal = document.getElementById("closeModal");
 
-  products.forEach(product => {
-    const card = document.createElement("div");
-    card.className = "product-card";
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
 
-    card.innerHTML = `
-      <h3>${product.name}</h3>
-      <p>Price: ${product.price} Pound</p>
-      <p>Category: ${product.category}</p>
-      <p>Status: <strong>${product.status}</strong></p>
-      <div class="actions">
-        <button onclick="approveProduct(${product.id})">✔️ Agree</button>
-        <button onclick="rejectProduct(${product.id})">❌ Refuse</button>
-        <button onclick="deleteProduct(${product.id})">🗑️ Remove</button>
-        <button onclick="editProduct(${product.id})">📝 Edit</button>
-      </div>
-      <div id="edit-form-${product.id}" style="display: none; margin-top: 10px;">
-        <input type="text" id="name-${product.id}" value="${product.name}" placeholder="NameOfProduct" />
-        <input type="number" id="price-${product.id}" value="${product.price}" placeholder="Price" />
-        <input type="text" id="category-${product.id}" value="${product.category}" placeholder="Category" />
-        <button onclick="saveProduct(${product.id})">💾 Save</button>
-        <button onclick="cancelEdit(${product.id})">❌ Cancel</button>
+  const username = document.getElementById("username").value.trim();
+  const password = document.getElementById("password").value.trim();
+  const role = document.getElementById("role").value;
+
+  // Check if username already exists
+  const res = await fetch(`http://localhost:3000/users?username=${username}`);
+  const data = await res.json();
+  if (data.length > 0) {
+    alert("Username already exists!");
+    return;
+  }
+
+  const user = { username, password, role };
+
+  await fetch("http://localhost:3000/users", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(user),
+  });
+
+  alert("User created successfully!");
+  form.reset();
+  fetchUsers();
+});
+
+async function fetchUsers() {
+  const res = await fetch("http://localhost:3000/users");
+  const users = await res.json();
+
+  userList.innerHTML = "";
+
+  users.forEach((user) => {
+    
+    if (isNaN(user.id)) {
+      console.error(`Invalid user ID: ${user.id}. Expected a number.`);
+      return;
+    }
+
+    const userCard = document.createElement("div");
+    userCard.className = "user-card";
+    userCard.innerHTML = `
+      <p><strong>Username:</strong> ${user.username}</p>
+      <p><strong>Role:</strong> <em>${user.role}</em></p>
+      <div class="button-group">
+        <button class="btn btn-delete" onclick="deleteUser(${user.id})"><i class="fas fa-trash"></i> Delete</button>
+        <button class="btn btn-edit" onclick="openEditModal(${user.id}, '${user.username}', '${user.role}')"><i class="fas fa-edit"></i> Edit</button>
       </div>
     `;
-
-    productList.appendChild(card);
+    userList.appendChild(userCard);
   });
 }
 
-window.approveProduct = async function(id) {
-  await fetch(`http://localhost:3000/products/${id}`, {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ status: "approved" })
-  });
-  fetchProducts();
-};
+async function deleteUser(id) {
+  if (confirm("Are you sure you want to delete this user?")) {
+    await fetch(`http://localhost:3000/users/${id}`, {
+      method: "DELETE",
+    });
+    fetchUsers();
+  }
+}
 
-window.rejectProduct = async function(id) {
-  await fetch(`http://localhost:3000/products/${id}`, {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ status: "rejected" })
-  });
-  fetchProducts();
-};
+function openEditModal(id, username, role) {
+  document.getElementById("editUserId").value = id;
+  document.getElementById("editUsername").value = username;
+  document.getElementById("editRole").value = role;
+  editModal.style.display = "block";
+}
 
-window.deleteProduct = async function(id) {
-  await fetch(`http://localhost:3000/products/${id}`, {
-    method: "DELETE"
-  });
-  fetchProducts();
-};
+editUserForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
 
-window.editProduct = function(id) {
-  document.getElementById(`edit-form-${id}`).style.display = "block";
-};
+  const id = document.getElementById("editUserId").value;
+  const username = document.getElementById("editUsername").value.trim();
+  const role = document.getElementById("editRole").value;
 
-window.cancelEdit = function(id) {
-  document.getElementById(`edit-form-${id}`).style.display = "none";
-};
+  if (username && role) {
+    await fetch(`http://localhost:3000/users/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, role }),
+    });
+    editModal.style.display = "none";
+    fetchUsers();
+  }
+});
 
-window.saveProduct = async function(id) {
-  const name = document.getElementById(`name-${id}`).value.trim();
-  const price = parseFloat(document.getElementById(`price-${id}`).value);
-  const category = document.getElementById(`category-${id}`).value.trim();
+closeModal.addEventListener("click", () => {
+  editModal.style.display = "none";
+});
 
-  await fetch(`http://localhost:3000/products/${id}`, {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ name, price, category })
-  });
+// Close modal when clicking outside
+window.addEventListener("click", (e) => {
+  if (e.target === editModal) {
+    editModal.style.display = "none";
+  }
+});
 
-  fetchProducts();
-};
-
-// تحميل البيانات أول ما الصفحة تفتح
-fetchProducts();
+fetchUsers();

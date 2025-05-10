@@ -2,24 +2,79 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin ManWays</title>
-
-  <style>
-    .product-card {
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      padding: 10px;
-      margin-bottom: 10px;
-    }
-    .actions button {
-      margin-right: 5px;
-    }
-  </style>
+  <title>Manage Users</title>
+  <link rel="stylesheet" href="admin_products.css" />
+  <link
+      rel="stylesheet"
+      href="../fontawsome/fontawesome-free-6.7.2-web/css/all.min.css"
+    />
 </head>
 <body>
-  <h1>👑 Admin ManWays</h1>
-  <div id="productList"></div>
+  <nav class="navbar">
+    <div class="container">
+      <h1 class="logo"><i class="fas fa-crown"></i> Admin Control Panel</h1>
+      <ul class="nav-links">
+        <li><a href="../index.html"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="../Shop/shop.html"><i class="fas fa-box"></i> Products</a></li>
+        <li><a href="../all_products/all_products.html"><i class="fas fa-box"></i> AllProducts</a></li>
+        <li><a href="../Dashboard/admin.html"><i class="fas fa-users"></i> Admin</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container">
+    <h2 class="section-title">User Management</h2>
+    
+    <!-- Create User Form -->
+    <form id="createUserForm" class="user-form">
+      <div class="form-group">
+        <label for="username"><i class="fas fa-user"></i> Username</label>
+        <input type="text" id="username" required placeholder="Enter username">
+      </div>
+      <div class="form-group">
+        <label for="password"><i class="fas fa-lock"></i> Password</label>
+        <input type="password" id="password" required placeholder="Enter password">
+      </div>
+      <div class="form-group">
+        <label for="role"><i class="fas fa-user-tag"></i> Role</label>
+        <select id="role" required>
+          <option value="admin">Admin</option>
+          <option value="seller">Seller</option>
+          <option value="customer">Customer</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-create"><i class="fas fa-plus"></i> Add User</button>
+    </form>
+
+    <!-- User List -->
+    <h3 class="section-subtitle">Existing Users</h3>
+    <div id="userList" class="user-grid"></div>
+
+    <!-- Edit User Modal -->
+    <div id="editModal" class="modal">
+      <div class="modal-content">
+        <span id="closeModal" class="close">&times;</span>
+        <h3>Edit User</h3>
+        <form id="editUserForm">
+          <input type="hidden" id="editUserId">
+          <div class="form-group">
+            <label for="editUsername"><i class="fas fa-user"></i> Username</label>
+            <input type="text" id="editUsername" required>
+          </div>
+          <div class="form-group">
+            <label for="editRole"><i class="fas fa-user-tag"></i> Role</label>
+            <select id="editRole" required>
+              <option value="admin">Admin</option>
+              <option value="seller">Seller</option>
+              <option value="customer">Customer</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-create"><i class="fas fa-save"></i> Save Changes</button>
+        </form>
+      </div>
+    </div>
+  </div>
 
   <script src="admin_products.js"></script>
 </body>

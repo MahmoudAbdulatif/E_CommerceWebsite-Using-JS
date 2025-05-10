@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>All Products (Admin)</title>
+  <link
+      rel="stylesheet"
+      href="../fontawsome/fontawesome-free-6.7.2-web/css/all.min.css"
+    />
+  <link rel="stylesheet" href="all_products.css" />
+</head>
+<body>
+<nav class="navbar">
+    <div class="container">
+      <h1 class="logo"><i class="fas fa-crown"></i> Admin Control Panel</h1>
+      <ul class="nav-links">
+        <li><a href="../index.html"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="../Dashboard/admin.html"><i class="fas fa-box"></i> Admin</a></li>
+        <li><a href="../admin_product/admin_products.html"><i class="fas fa-users"></i> Users</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container">
+    <h2 class="section-title">Manage All Products</h2>
+    <div id="productList" class="product-grid"></div>
+
+    <!-- Edit Product Modal -->
+    <div id="editModal" class="modal">
+      <div class="modal-content">
+        <span id="closeModal" class="close">×</span>
+        <h3>Edit Product</h3>
+        <form id="editProductForm">
+          <input type="hidden" id="editProductId">
+          <div class="form-group">
+            <label for="editName"><i class="fas fa-box"></i> Product Name</label>
+            <input type="text" id="editName" required>
+          </div>
+          <div class="form-group">
+            <label for="editPrice"><i class="fas fa-dollar-sign"></i> Price (EGP)</label>
+            <input type="number" id="editPrice" required min="0" step="0.01">
+          </div>
+          <div class="form-group">
+            <label for="editStatus"><i class="fas fa-check-circle"></i> Status</label>
+            <select id="editStatus" required>
+              <option value="approved">Approved</option>
+              <option value="rejected">Rejected</option>
+              <option value="pending">Pending</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="editImage"><i class="fas fa-image"></i> Image Path</label>
+            <input type="text" id="editImage" placeholder="e.g., img/products/f1.jpg">
+          </div>
+          <button type="submit" class="btn btn-create"><i class="fas fa-save"></i> Save Changes</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script src="all_products.js"></script>
+</body>
+</html>
