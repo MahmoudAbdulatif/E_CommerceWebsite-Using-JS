@@ -152,5 +152,14 @@
       "status": "Processing"
     }
   ],
-  "reviews": []
+  "reviews": [
+    {
+      "id": "f6ef",
+      "productId": null,
+      "userId": "21",
+      "username": "sasasa",
+      "rating": 3,
+      "comment": "low"
+    }
+  ]
 }
